@@ -1,4 +1,3 @@
-❯ cat .zshrc
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -6,120 +5,65 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
+# source /usr/share/zsh/zshrc
 
-# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time Oh My Zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="powerlevel10k/powerlevel10k"
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in $ZSH/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+plugins=( git sudo zsh-autosuggestions zsh-syntax-highlighting terraform )
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
-
-# Uncomment one of the following lines to change the auto-update behavior
-# zstyle ':omz:update' mode disabled  # disable automatic updates
-# zstyle ':omz:update' mode auto      # update automatically without asking
-# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
-
-# Uncomment the following line to change how often to auto-update (in days).
-# zstyle ':omz:update' frequency 13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS="true"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
-# Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
-
-# Uncomment the following line to display red dots whilst waiting for completion.
-# You can also set it to another string to have that shown instead of the default red dots.
-# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
-# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
-# COMPLETION_WAITING_DOTS="true"
-
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-# HIST_STAMPS="mm/dd/yyyy"
-
-# Would you like to use another custom folder than $ZSH/custom?
-# ZSH_CUSTOM=/path/to/new-custom-folder
-
-# Which plugins would you like to load?
-# Standard plugins can be found in $ZSH/plugins/
-# Custom plugins may be added to $ZSH_CUSTOM/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-
-plugins=(git aws zsh-autosuggestions zsh-syntax-highlighting)
 source $ZSH/oh-my-zsh.sh
 
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#d787ff,bold'
+HISTIGNORE='*git commit*:*ls*:*cd*:*git add*'
+
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-# User configuration
 
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-# export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='nvim'
-# fi
-
-# Compilation flags
-# export ARCHFLAGS="-arch $(uname -m)"
-
-# Set personal aliases, overriding those provided by Oh My Zsh libs,
-# plugins, and themes. Aliases can be placed here, though Oh My Zsh
-# users are encouraged to define aliases within a top-level file in
-# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
-# - $ZSH_CUSTOM/aliases.zsh
-# - $ZSH_CUSTOM/macos.zsh
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
-alias vi="nvim"
-# # Start X if not already running
-if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
-    exec startx
+if (( $+commands[luarocks] )); then
+    eval `luarocks path --bin`
 fi
-export GTK_THEME=Adwaita-dark
+
+# Enable AWS CLI autocompletion
+complete -C aws_completer aws
+
 export PATH=$HOME/.local/bin:$PATH
-export PIPEWIRE_LATENCY=128/48000
-export PULSE_SERVER="unix:${XDG_RUNTIME_DIR}/pulse/native"
+export GTK_THEME=Adwaita-dark
 
 
-autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/bin/terraform terraform
+# Prompt with Rose Pine colors
+PROMPT='%F{#eb6f92}%n%F{#31748f}@%F{#9ccfd8}%m %F{#f6c177}%~ %F{#c4a7e7}$(git_branch) %F{#e1def4}%% '
+
+# Syntax highlighting with Rose Pine colors
+ZSH_HIGHLIGHT_STYLES[command]='fg=#9ccfd8'            # Teal for commands
+ZSH_HIGHLIGHT_STYLES[builtin]='fg=#31748f'              # Blue for builtins
+ZSH_HIGHLIGHT_STYLES[reserved-word]='fg=#eb6f92,bold'   # Red for reserved words
+ZSH_HIGHLIGHT_STYLES[comment]='fg=#6e6a86'              # Muted gray for comments
+ZSH_HIGHLIGHT_STYLES[alias]='fg=#f6c177'                # Yellow for aliases
+ZSH_HIGHLIGHT_STYLES[string]='fg=#c4a7e7'               # Purple for strings
+ZSH_HIGHLIGHT_STYLES[function]='fg=#ebbcba,bold'        # Peach for functions
+ZSH_HIGHLIGHT_STYLES[unknown-token]='fg=#eb6f92,bold'   # Red for unknown tokens
+ZSH_HIGHLIGHT_STYLES[globbing]='fg=#f6c177'             # Yellow for globbing
+ZSH_HIGHLIGHT_STYLES[history-expansion]='fg=#31748f'    # Blue for history expansion
+ZSH_HIGHLIGHT_STYLES[parameter]='fg=#9ccfd8'            # Teal for parameters
+
+# Syntax highlighting for terraform
+RPROMPT='$(tf_prompt_info)'
+RPROMPT='$(tf_version_prompt_info)'
+
+ZSH_THEME_TF_PROMPT_PREFIX="%{$fg[white]%}"
+ZSH_THEME_TF_PROMPT_SUFFIX="%{$reset_color%}"
+ZSH_THEME_TF_VERSION_PROMPT_PREFIX="%{$fg[white]%}"
+ZSH_THEME_TF_VERSION_PROMPT_SUFFIX="%{$reset_color%}"
+
+# Aliases for fun
+alias ll='ls -lh --color=auto'
+alias gs='git status'
+alias k8='kubectl '
+alias vi="nvim"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
