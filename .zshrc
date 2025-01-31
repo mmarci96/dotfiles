@@ -11,12 +11,11 @@ export ZSH="$HOME/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-plugins=( git sudo zsh-autosuggestions zsh-syntax-highlighting terraform )
+plugins=( git sudo zsh-autosuggestions zsh-syntax-highlighting )
 
 source $ZSH/oh-my-zsh.sh
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#d787ff,bold'
-HISTIGNORE='*git commit*:*ls*:*cd*:*git add*'
 
 export _JAVA_AWT_WM_NONREPARENTING=1
 
@@ -60,9 +59,12 @@ ZSH_THEME_TF_VERSION_PROMPT_SUFFIX="%{$reset_color%}"
 
 # Aliases for fun
 alias ll='ls -lh --color=auto'
-alias gs='git status'
-alias k8='kubectl '
+alias g='git'
+alias k='kubectl '
 alias vi="nvim"
+alias dc="docker-compose"
+alias d="docker"
+alias q="exit"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
