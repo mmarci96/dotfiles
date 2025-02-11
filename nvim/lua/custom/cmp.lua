@@ -1,39 +1,9 @@
 local cmp = require "cmp"
 
-local function is_inside_string()
-    local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2]
-
-    local before_cursor = line:sub(1, col)
-    local inside_string = false
-
-    local quote_count = 0
-    for i = 1, #before_cursor do
-        local char = before_cursor:sub(i, i)
-        if char == '"' or char == "'" then
-            quote_count = quote_count + 1
-        end
-    end
-
-    if quote_count % 2 == 1 then
-        inside_string = true
-    end
-
-    return inside_string
-end
-
-local function contains_path_indicator()
-    local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2]
-    local before_cursor = line:sub(1, col)
-
-    return before_cursor:match("[/%.]") ~= nil
-end
-
 cmp.setup {
     completion = {
         autocomplete = { require("cmp.types").cmp.TriggerEvent.TextChanged },
-        delay = 100,
+        delay = 200,
         completeopt = "menu,menuone,noselect",
     },
     mapping = {
@@ -55,27 +25,13 @@ cmp.setup {
         end,
     },
     sources = {
-        { name = "nvim_lsp" },
+        { name = "ts_ls" },
         { name = "luasnip" },
+        { name = "nvim_lsp" },
+        { name = "path",    trigger_characters = { "/", "./" } },
         { name = "buffer" },
-        { name = "tailwindcss-language-server"},
-        { name = "path", trigger_characters = { "/", "./" } },
+        { name = "spell",   option = { enable_in_comment = false } }, -- Spell-check
+        { name = "cmp-react" }
     },
-    -- experimental = {
-    --     ghost_text = true,
-    -- },
     preselect = cmp.PreselectMode.Item,
-    enabled = function()
-        if is_inside_string() then
-            if contains_path_indicator() then
-                return true
-            else
-                return false
-            end
-        else
-            return true
-        end
-    end,
-
 }
-

@@ -14,14 +14,15 @@ return {
         "nvim-treesitter/nvim-treesitter",
         opts = {
             ensure_installed = {
-                "vim", "lua", "vimdoc", "html", "css"
+                "vim", "lua", "vimdoc", "html",
             },
         },
     },
     {
         "hrsh7th/nvim-cmp",
         config = function()
-            require "custom.cmp"  -- Reference to custom completion config
+            require "custom.cmp" -- Reference to custom completion config
         end,
+
     },
 }

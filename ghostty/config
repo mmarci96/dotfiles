@@ -1,4 +1,6 @@
-
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
 clipboard-read = allow
 clipboard-write = allow
 copy-on-select = true
@@ -27,4 +29,4 @@ palette = 15=#ffffff
 font-size = 13
 font-thicken = true
 font-family = JetBrainsMono Nerd Font
-
+keybind = ctrl+m=reload_config
