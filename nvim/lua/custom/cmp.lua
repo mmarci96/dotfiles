@@ -28,9 +28,9 @@ cmp.setup {
         { name = "ts_ls" },
         { name = "luasnip" },
         { name = "nvim_lsp" },
-        { name = "path",    trigger_characters = { "/", "./" } },
+        { name = "path",       trigger_characters = { "/", "./" } },
         { name = "buffer" },
-        { name = "spell",   option = { enable_in_comment = false } }, -- Spell-check
+        { name = "spell",      option = { enable_in_comment = false } },                 -- Spell-check
         { name = "cmp-react" }
     },
     preselect = cmp.PreselectMode.Item,
