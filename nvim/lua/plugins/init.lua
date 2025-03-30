@@ -16,7 +16,6 @@ return {
             ensure_installed = {
                 "typescript", "javascript", "vim", "lua", "vimdoc", "html",
             },
-            highlight = { enable = true },
         },
     },
     {
