@@ -2,7 +2,7 @@
 local M = {}
 
 M.base46 = {
-    theme = "rosepine",
+    theme = "tokyonight",
     transparency = true,
     tabufline = {
         enabled = true,

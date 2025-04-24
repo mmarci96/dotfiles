@@ -8,13 +8,8 @@ cmp.setup {
     },
     mapping = {
         ["<CR>"] = cmp.mapping.confirm { select = true },
-        ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.confirm { select = true }
-            else
-                fallback()
-            end
-        end, { "i", "s" }),
+        ["<Tab>"] = cmp.mapping.select_next_item(),
+        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
 
         ["<Down>"] = cmp.mapping.select_next_item(),
         ["<Up>"] = cmp.mapping.select_prev_item(),

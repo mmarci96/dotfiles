@@ -42,3 +42,11 @@ vim.cmd [[
   highlight TabLineFill   guibg=#04000F guifg=#6c6f77
   highlight TabLineClose  guibg=#04000F guifg=#FF5F00
 ]]
+
+
+require("nvim-tree").setup({
+  renderer = {
+    group_empty = true,
+  },
+})
+
